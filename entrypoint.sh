@@ -63,8 +63,10 @@ register_runner() {
       args+=(--docker-privileged)
     fi
 
-    if [[ -n "${DOCKER_VOLUMES:-}" ]]; then
-      IFS=',' read -ra vols <<< "$DOCKER_VOLUMES"
+    local docker_volumes="${DOCKER_VOLUMES:-}"
+    docker_volumes="$(echo "$docker_volumes" | xargs)"  # trim whitespace
+    if [[ -n "$docker_volumes" ]]; then
+      IFS=',' read -ra vols <<< "$docker_volumes"
       for vol in "${vols[@]}"; do
         vol="$(echo "$vol" | xargs)"  # trim whitespace
         [[ -n "$vol" ]] && args+=(--docker-volumes "$vol")
