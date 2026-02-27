@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>gitlab-runner</Name>
-  <Repository>mcgo/unraid-gitlab-runner</Repository>
-  <Registry>https://hub.docker.com/r/mcgo/unraid-gitlab-runner</Registry>
+  <Repository>mirkohaaser/unraid-gitlab-runner</Repository>
+  <Registry>https://hub.docker.com/r/mirkohaaser/unraid-gitlab-runner</Registry>
   <Branch>
     <Tag>latest</Tag>
     <TagDescription>Latest stable release</TagDescription>
