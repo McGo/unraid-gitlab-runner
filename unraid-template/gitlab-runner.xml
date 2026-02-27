@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>gitlab-runner</Name>
+  <Repository>mcgo/unraid-gitlab-runner</Repository>
+  <Registry>https://hub.docker.com/r/mcgo/unraid-gitlab-runner</Registry>
+  <Branch>
+    <Tag>latest</Tag>
+    <TagDescription>Latest stable release</TagDescription>
+  </Branch>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/mcgo/unraid-gitlab-runner/issues</Support>
+  <Project>https://github.com/mcgo/unraid-gitlab-runner</Project>
+  <Overview>
+    GitLab Runner for Unraid with automatic registration.&#xD;
+    Registers itself at your GitLab instance on first start using a Runner Token.&#xD;
+    Supports Docker and Shell executors.
+  </Overview>
+  <Category>Tools: Productivity:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/mcgo/unraid-gitlab-runner/main/unraid-template/gitlab-runner.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/mcgo/unraid-gitlab-runner/main/unraid-template/gitlab-runner-icon.png</Icon>
+  <ExtraParams/>
+  <Description>
+    GitLab Runner for Unraid with automatic registration.
+    Registers itself at your GitLab instance on first start using a Runner Token.
+    Supports Docker and Shell executors.
+  </Description>
+
+  <!-- ── Required Variables ── -->
+
+  <Config
+    Name="GitLab URL"
+    Target="CI_SERVER_URL"
+    Default="https://gitlab.com"
+    Mode=""
+    Description="URL of your GitLab instance (e.g. https://gitlab.com or https://gitlab.example.com)"
+    Type="Variable"
+    Display="always"
+    Required="true"
+    Mask="false"/>
+
+  <Config
+    Name="Runner Token"
+    Target="RUNNER_TOKEN"
+    Default=""
+    Mode=""
+    Description="Runner authentication token. Create one in GitLab under Settings > CI/CD > Runners. Modern tokens start with glrt-."
+    Type="Variable"
+    Display="always"
+    Required="true"
+    Mask="true"/>
+
+  <Config
+    Name="Runner Name"
+    Target="RUNNER_NAME"
+    Default="unraid-runner"
+    Mode=""
+    Description="Display name for this runner in GitLab."
+    Type="Variable"
+    Display="always"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Executor"
+    Target="RUNNER_EXECUTOR"
+    Default="docker"
+    Mode=""
+    Description="Execution environment: 'docker' (recommended) or 'shell'."
+    Type="Variable"
+    Display="always"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Default Docker Image"
+    Target="DOCKER_IMAGE"
+    Default="alpine:latest"
+    Mode=""
+    Description="Default Docker image used for CI jobs (only relevant for Docker executor)."
+    Type="Variable"
+    Display="always"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Concurrent Jobs"
+    Target="RUNNER_CONCURRENT"
+    Default="1"
+    Mode=""
+    Description="Maximum number of jobs to run in parallel."
+    Type="Variable"
+    Display="always"
+    Required="false"
+    Mask="false"/>
+
+  <!-- ── Advanced Variables ── -->
+
+  <Config
+    Name="Runner Tags"
+    Target="RUNNER_TAG_LIST"
+    Default=""
+    Mode=""
+    Description="Comma-separated list of tags (only effective with legacy registration tokens)."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Run Untagged Jobs"
+    Target="RUNNER_UNTAGGED"
+    Default=""
+    Mode=""
+    Description="Set to 'true' to pick up jobs without tags (only effective with legacy registration tokens)."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Lock to Project"
+    Target="RUNNER_LOCKED"
+    Default=""
+    Mode=""
+    Description="Set to 'true' to lock runner to the current project (only effective with legacy registration tokens)."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Docker Privileged Mode"
+    Target="DOCKER_PRIVILEGED"
+    Default="false"
+    Mode=""
+    Description="Run Docker-in-Docker in privileged mode. Required for some CI tasks like building Docker images."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Additional Docker Volumes"
+    Target="DOCKER_VOLUMES"
+    Default=""
+    Mode=""
+    Description="Comma-separated list of additional volumes to mount in job containers (e.g. /cache:/cache,/builds:/builds)."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="Unregister on Stop"
+    Target="UNREGISTER_ON_STOP"
+    Default="false"
+    Mode=""
+    Description="Set to 'true' to automatically unregister the runner when the container stops."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"/>
+
+  <Config
+    Name="CA Certificate Path"
+    Target="CA_CERTIFICATES_PATH"
+    Default=""
+    Mode=""
+    Description="Path to a custom CA certificate file inside the container (e.g. /etc/gitlab-runner/certs/ca.crt)."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"/>
+
+  <!-- ── Volumes ── -->
+
+  <Config
+    Name="Config Storage"
+    Target="/etc/gitlab-runner"
+    Default="/mnt/user/appdata/gitlab-runner"
+    Mode="rw"
+    Description="Persistent storage for runner configuration."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false"/>
+
+  <Config
+    Name="Docker Socket"
+    Target="/var/run/docker.sock"
+    Default="/var/run/docker.sock"
+    Mode="rw"
+    Description="Docker socket for the Docker executor. Required when using executor 'docker'."
+    Type="Path"
+    Display="always"
+    Required="false"
+    Mask="false"/>
+</Container>

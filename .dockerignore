@@ -1,0 +1,11 @@
+.git
+.github
+.gitignore
+.dockerignore
+.claude
+.DS_Store
+README.md
+LICENSE
+unraid-template/
+test-config/
+*.md
