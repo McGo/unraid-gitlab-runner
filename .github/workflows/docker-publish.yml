@@ -9,7 +9,7 @@ on:
 
 env:
   GHCR_IMAGE: ghcr.io/mcgo/unraid-gitlab-runner
-  DOCKERHUB_IMAGE: mcgo/unraid-gitlab-runner
+  DOCKERHUB_IMAGE: mirkohaaser/unraid-gitlab-runner
 
 jobs:
   build-and-push:
